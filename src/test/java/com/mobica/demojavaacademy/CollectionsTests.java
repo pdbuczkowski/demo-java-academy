@@ -1,13 +1,12 @@
 package com.mobica.demojavaacademy;
 
 import com.google.common.truth.Truth;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
 
-@RunWith(SpringRunner.class)
+@SpringBootTest
 public class CollectionsTests {
 
     @Test
