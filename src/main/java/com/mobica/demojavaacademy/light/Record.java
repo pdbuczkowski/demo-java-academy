@@ -1,3 +1,5 @@
 package com.mobica.demojavaacademy.light;
 
-record Record(String d, String o, String h, String l, String c, String v) {}
+import java.util.Date;
+
+record Record(Date d, double o, double h, double l, double c, double v) {}

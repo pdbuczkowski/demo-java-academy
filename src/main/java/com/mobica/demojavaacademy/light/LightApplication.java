@@ -2,11 +2,15 @@ package com.mobica.demojavaacademy.light;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LightApplication {
-    public static void main(String[] args) throws FileNotFoundException {
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
         var scanner = new Scanner(new File("light2403.csv"));
         scanner.useDelimiter(";");
 
@@ -15,7 +19,14 @@ public class LightApplication {
         while (scanner.hasNextLine()) {
             var line = scanner.nextLine();
             var parts = line.split(";");
-            var record = new Record(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]);
+            var record = new Record(
+                    sdf.parse(parts[0]),
+                    Double.parseDouble(parts[1]),
+                    Double.parseDouble(parts[2]),
+                    Double.parseDouble(parts[3]),
+                    Double.parseDouble(parts[4]),
+                    Double.parseDouble(parts[5])
+            );
             records.add(record);
         }
 
