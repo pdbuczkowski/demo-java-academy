@@ -1,7 +1,7 @@
 package com.mobica.demojavaacademy.csv;
 
 public class DataLine {
-//    final String d, o, h, l, c, v;
+//    final String d, open, high, low, close, volume;
     final String[] parts;
 
     DataLine(String line) {

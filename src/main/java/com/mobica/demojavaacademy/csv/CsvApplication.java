@@ -1,5 +1,8 @@
 package com.mobica.demojavaacademy.csv;
 
+import com.mobica.demojavaacademy.csv.sod.SoD;
+import com.mobica.demojavaacademy.csv.sod.StrategyResult;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -29,8 +32,14 @@ public class CsvApplication {
             records.add(record);
         }
 
-        System.out.println(records);
+        var sod = new SoD();
+        var map = sod.groupDays(records);
 
+        var sodResults = new HashMap<Date, StrategyResult>();
+        map.keySet().stream().forEach(date -> {
+            var dateRecords = map.get(date);
+            var result = sod.strategyBuy(dateRecords, 0.5, 1.0);
+        });
         scanner.close();
     }
 }

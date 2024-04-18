@@ -30,7 +30,7 @@ class RecordSegment extends Segment<Record> {
 
     double h() throws NoSuchElementException {
         var opt = content.stream().max((r1, r2) -> {
-            var diff = r1.h() - r2.h();
+            var diff = r1.high() - r2.high();
             if (diff == 0.0) {
                 return 0;
             }
@@ -38,7 +38,7 @@ class RecordSegment extends Segment<Record> {
         });
 
         if (opt.isPresent()) {
-            return opt.get().h();
+            return opt.get().high();
         } else {
             throw new NoSuchElementException(ERR_MSG_EMPTY_CONTENT);
         }
@@ -46,7 +46,7 @@ class RecordSegment extends Segment<Record> {
 
     double l() throws NoSuchElementException {
         var opt = content.stream().min((r1, r2) -> {
-            var diff = r1.l() - r2.l();
+            var diff = r1.low() - r2.low();
             if (diff == 0.0) {
                 return 0;
             }
@@ -54,7 +54,7 @@ class RecordSegment extends Segment<Record> {
         });
 
         if (opt.isPresent()) {
-            return opt.get().l();
+            return opt.get().low();
         } else {
             throw new NoSuchElementException(ERR_MSG_EMPTY_CONTENT);
         }
@@ -64,13 +64,13 @@ class RecordSegment extends Segment<Record> {
         if (content.isEmpty()) {
             throw new NoSuchElementException(ERR_MSG_EMPTY_CONTENT);
         }
-        return content.peekFirst().o();
+        return content.peekFirst().open();
     }
 
     double c() throws NoSuchElementException {
         if (content.isEmpty()) {
             throw new NoSuchElementException(ERR_MSG_EMPTY_CONTENT);
         }
-        return content.peekLast().c();
+        return content.peekLast().close();
     }
 }
