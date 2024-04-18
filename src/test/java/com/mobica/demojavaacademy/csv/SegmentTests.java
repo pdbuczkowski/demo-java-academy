@@ -1,4 +1,4 @@
-package com.mobica.demojavaacademy.light;
+package com.mobica.demojavaacademy.csv;
 
 import com.google.common.truth.Truth;
 import org.junit.jupiter.api.Test;

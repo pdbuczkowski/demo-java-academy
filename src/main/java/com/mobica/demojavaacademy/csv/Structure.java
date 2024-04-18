@@ -1,4 +1,4 @@
-package com.mobica.demojavaacademy.light;
+package com.mobica.demojavaacademy.csv;
 
 public class Structure<T> {
     final Segment<T> first, second;

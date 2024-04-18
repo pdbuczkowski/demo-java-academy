@@ -1,4 +1,4 @@
-package com.mobica.demojavaacademy.light;
+package com.mobica.demojavaacademy.csv;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;

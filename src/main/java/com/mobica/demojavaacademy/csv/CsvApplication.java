@@ -1,13 +1,12 @@
-package com.mobica.demojavaacademy.light;
+package com.mobica.demojavaacademy.csv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
-public class LightApplication {
+public class CsvApplication {
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
     public static void main(String[] args) throws FileNotFoundException, ParseException {
