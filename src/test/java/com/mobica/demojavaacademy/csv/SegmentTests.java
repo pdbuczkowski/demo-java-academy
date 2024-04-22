@@ -25,9 +25,9 @@ public class SegmentTests {
     void traits() {
         var segment = new RecordSegment(3);
 
-        segment.shift(new Record(new Date(), 1.0, 2.0, 0.5, 1.5, 1));
-        segment.shift(new Record(new Date(), 2.0, 4.0, -10, -5, 1));
-        segment.shift(new Record(new Date(), -7, -6, -10, -6.5, 1));
+        segment.shift(new Bar(new Date(), 1.0, 2.0, 0.5, 1.5, 1));
+        segment.shift(new Bar(new Date(), 2.0, 4.0, -10, -5, 1));
+        segment.shift(new Bar(new Date(), -7, -6, -10, -6.5, 1));
 
         Truth.assertThat(segment.h()).isEqualTo(4);
         Truth.assertThat(segment.l()).isEqualTo(-10);

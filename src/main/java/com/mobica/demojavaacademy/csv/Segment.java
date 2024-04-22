@@ -20,7 +20,7 @@ class Segment<T> {
     }
 }
 
-class RecordSegment extends Segment<Record> {
+class RecordSegment extends Segment<Bar> {
 
     private static final String ERR_MSG_EMPTY_CONTENT = "Segment content is empty.";
 
