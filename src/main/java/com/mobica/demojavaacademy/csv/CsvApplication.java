@@ -4,14 +4,16 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 
 public class CsvApplication {
 
     public static void main(String[] args) throws FileNotFoundException, ParseException {
 
-        var dataan = new Dataan("light2403.csv");
+        final var source = new DataSource("light2403.csv");
+        final var dataan = new Dataan();
 
-        var barsByDay = dataan.aggregateByDays(dataan.bars);
+        var barsByDay = dataan.aggregateByDays(source.bars);
 
         System.out.println(
                 barsByDay.keySet().stream()
@@ -25,7 +27,8 @@ public class CsvApplication {
 
         var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH,25).getTime());
 
-        var b = dataan.b(bars25, 1.0, 0.5);
+        var b = dataan.b(new LinkedList<>(), 1.0, 0.5);
+//        var b = dataan.b(bars25, 1.0, 0.5);
         System.out.println("b=" + b);
         var avgB = b / bars25.stream().count();
         System.out.println("avgB=" + avgB);

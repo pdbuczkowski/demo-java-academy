@@ -9,39 +9,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.mobica.demojavaacademy.csv.sod.Util.cutOffTime;
+import static com.mobica.demojavaacademy.csv.sod.Util.justDate;
 
 public class Dataan {
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-    final List<Bar> bars;
-
-    Dataan(String file) throws FileNotFoundException, ParseException {
-        var scanner = new Scanner(new File(file));
-//        scanner.useDelimiter(";");
-
-        bars = new LinkedList<>();
-
-        while (scanner.hasNextLine()) {
-            bars.add(toBar(scanner.nextLine()));
-        }
-
-        scanner.close();
-    }
-
-    Dataan(String[] lines) throws ParseException {
-        bars = new LinkedList<>();
-
-        for (String line: lines) {
-            bars.add(toBar(line));
-        }
-    }
 
     public Map<Date, LinkedList<Bar>> aggregateByDays(Collection<Bar> data) {
         var map = new HashMap<Date, LinkedList<Bar>>();
 
         data.forEach(record -> {
-            var date = cutOffTime(record.date());
+            var date = justDate(record.date());
             if (map.containsKey(date)) {
                 map.get(date).add(record);
             } else {
@@ -53,9 +29,7 @@ public class Dataan {
         return map;
     }
 
-    public double b(LinkedList<Bar> data, double tp, double sl) throws IllegalArgumentException {
-        // TODO data.isNotEmpty, tp && sl > 0.0
-
+    public double b(LinkedList<Bar> data, double tp, double sl) {
         final var oPos = new LinkedList<Op>();
         final var cPos = new LinkedList<Cl>();
 
@@ -107,17 +81,5 @@ public class Dataan {
         result += cPos.stream().map(p -> -(p.closed() - p.opened())).reduce(0.0, Double::sum);
         result += oPos.stream().map(p -> -(data.peekLast().close() - p.open())).reduce(0.0, Double::sum);
         return result;
-    }
-
-    private Bar toBar(String line) throws ParseException {
-        var parts = line.split(";");
-        return new Bar(
-                sdf.parse(parts[0]),
-                Double.parseDouble(parts[1]),
-                Double.parseDouble(parts[2]),
-                Double.parseDouble(parts[3]),
-                Double.parseDouble(parts[4]),
-                Double.parseDouble(parts[5])
-        );
     }
 }

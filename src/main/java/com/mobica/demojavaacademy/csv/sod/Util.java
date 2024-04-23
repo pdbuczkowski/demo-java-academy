@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Util {
-    public static Date cutOffTime(Date date) {
+    public static Date justDate(Date date) {
         var cal = new GregorianCalendar();
         cal.setTime(date);
 
