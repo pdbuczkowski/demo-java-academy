@@ -27,7 +27,8 @@ public class CsvApplication {
 
         var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH,25).getTime());
 
-        var b = dataan.b(new LinkedList<>(), 1.0, 0.5);
+        var b = dataan.buy(new LinkedList<>(), 0, 0);
+//        var b = dataan.buy(new LinkedList<>(), 1.0, 0.5);
 //        var b = dataan.b(bars25, 1.0, 0.5);
         System.out.println("b=" + b);
         var avgB = b / bars25.stream().count();

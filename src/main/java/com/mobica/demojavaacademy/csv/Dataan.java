@@ -3,10 +3,6 @@ package com.mobica.demojavaacademy.csv;
 import com.mobica.demojavaacademy.csv.model.Cl;
 import com.mobica.demojavaacademy.csv.model.Op;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.mobica.demojavaacademy.csv.sod.Util.justDate;
@@ -29,7 +25,14 @@ public class Dataan {
         return map;
     }
 
-    public double b(LinkedList<Bar> data, double tp, double sl) {
+    public double buy(LinkedList<Bar> data, double tp, double sl) {
+        assert tp > 0 : "TP should be > 0.0";
+        assert sl > 0 : "SL should be > 0.0";
+
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("Data set should not  be empty.");
+        }
+
         final var oPos = new LinkedList<Op>();
         final var cPos = new LinkedList<Cl>();
 
@@ -49,14 +52,18 @@ public class Dataan {
                     .forEach(cPos::add);
         });
 
-        var result = 0.0;
-        result += cPos.stream().map(p -> p.closed() - p.opened()).reduce(0.0, Double::sum);
-        result += oPos.stream().map(p -> data.peekLast().close() - p.open()).reduce(0.0, Double::sum);
-        return result;
+        return
+                cPos.stream().map(p -> p.closed() - p.opened()).reduce(0.0, Double::sum) +
+                oPos.stream().map(p -> data.peekLast().close() - p.open()).reduce(0.0, Double::sum);
     }
 
-    double s(LinkedList<Bar> data, double tp, double sl) {
-        // TODO data.isNotEmpty, tp && sl > 0.0
+    double sell(LinkedList<Bar> data, double tp, double sl) {
+        assert tp > 0 : "TP should be > 0.0";
+        assert sl > 0 : "SL should be > 0.0";
+
+        if (data.isEmpty()) {
+            throw new IllegalArgumentException("Data set should not be empty.");
+        }
 
         final var oPos = new LinkedList<Op>();
         final var cPos = new LinkedList<Cl>();
@@ -77,9 +84,8 @@ public class Dataan {
                     .forEach(cPos::add);
         });
 
-        var result = 0.0;
-        result += cPos.stream().map(p -> -(p.closed() - p.opened())).reduce(0.0, Double::sum);
-        result += oPos.stream().map(p -> -(data.peekLast().close() - p.open())).reduce(0.0, Double::sum);
-        return result;
+        return
+                cPos.stream().map(p -> -(p.closed() - p.opened())).reduce(0.0, Double::sum) +
+                oPos.stream().map(p -> -(data.peekLast().close() - p.open())).reduce(0.0, Double::sum);
     }
 }
