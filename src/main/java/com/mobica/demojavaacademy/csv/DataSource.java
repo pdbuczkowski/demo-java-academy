@@ -13,6 +13,12 @@ public class DataSource {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     final List<Bar> bars;
 
+    @TransformData(group = 5)
+    List<Bar> m5;
+
+    @TransformData(group = 15)
+    List<Bar> m15;
+
     DataSource(String file) throws FileNotFoundException, ParseException {
         bars = new LinkedList<>();
 
@@ -21,6 +27,8 @@ public class DataSource {
             bars.add(toBar(scanner.nextLine()));
         }
         scanner.close();
+
+        processAnnotations(this);
     }
 
     DataSource(String[] lines) throws ParseException {
@@ -29,6 +37,13 @@ public class DataSource {
         for (String line: lines) {
             bars.add(toBar(line));
         }
+
+        processAnnotations(this);
+    }
+
+    private void processAnnotations(Object object) {
+        var transformer = new DataTransformer(bars);
+        transformer.processAnnotations(object);
     }
 
     private Bar toBar(String line) throws ParseException {

@@ -25,7 +25,7 @@ public class Dataan {
         return map;
     }
 
-    public double buy(LinkedList<Bar> data, double tp, double sl) {
+    public double openLong(LinkedList<Bar> data, double tp, double sl) {
         assert tp > 0 : "TP should be > 0.0";
         assert sl > 0 : "SL should be > 0.0";
 
@@ -57,7 +57,7 @@ public class Dataan {
                 oPos.stream().map(p -> data.peekLast().close() - p.open()).reduce(0.0, Double::sum);
     }
 
-    double sell(LinkedList<Bar> data, double tp, double sl) {
+    double openShort(LinkedList<Bar> data, double tp, double sl) {
         assert tp > 0 : "TP should be > 0.0";
         assert sl > 0 : "SL should be > 0.0";
 

@@ -25,13 +25,19 @@ public class CsvApplication {
                         .toList()
         );
 
-        var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH,25).getTime());
+        var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH,27).getTime());
 
-        var b = dataan.buy(new LinkedList<>(), 0, 0);
-//        var b = dataan.buy(new LinkedList<>(), 1.0, 0.5);
-//        var b = dataan.b(bars25, 1.0, 0.5);
-        System.out.println("b=" + b);
-        var avgB = b / bars25.stream().count();
-        System.out.println("avgB=" + avgB);
+        var l = dataan.openLong(bars25, 1.0, 0.5);
+        System.out.println("l=" + l);
+        var avgL = l / bars25.size();
+        System.out.println("avgL=" + avgL);
+
+        var s = dataan.openShort(bars25, 0.5, 1.0);
+        System.out.println("s=" + s);
+        var avgS = s / bars25.size();
+        System.out.println("avgS=" + avgS);
+
+//        System.out.println(source.m5);
+        System.out.println(source.m15);
     }
 }
