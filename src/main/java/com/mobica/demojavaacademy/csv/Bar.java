@@ -2,4 +2,4 @@ package com.mobica.demojavaacademy.csv;
 
 import java.util.Date;
 
-public record Bar(Date date, double open, double high, double low, double close, double volume) {}
+public record Bar(Date d, double o, double h, double l, double c, double v) {}

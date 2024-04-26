@@ -13,10 +13,10 @@ public class DataSource {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     final List<Bar> bars;
 
-    @TransformData(group = 5)
+    @TransformData(merge = 5)
     List<Bar> m5;
 
-    @TransformData(group = 15)
+    @TransformData(merge = 15)
     List<Bar> m15;
 
     DataSource(String file) throws FileNotFoundException, ParseException {

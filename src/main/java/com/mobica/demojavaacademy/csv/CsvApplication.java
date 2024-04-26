@@ -16,16 +16,16 @@ public class CsvApplication {
         var barsByDay = dataan.aggregateByDays(source.bars);
 
         System.out.println(
-                barsByDay.keySet().stream()
-                        .map(date -> {
-                            var cal = Calendar.getInstance();
-                            cal.setTime(date);
-                            return cal.get(Calendar.DAY_OF_MONTH);
-                        })
-                        .toList()
+            barsByDay.keySet().stream()
+                .map(date -> {
+                    var cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    return cal.get(Calendar.DAY_OF_MONTH);
+                })
+                .toList()
         );
 
-        var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH,27).getTime());
+        var bars25 = barsByDay.get(new GregorianCalendar(2024, Calendar.MARCH, 27).getTime());
 
         var l = dataan.openLong(bars25, 1.0, 0.5);
         System.out.println("l=" + l);
@@ -37,7 +37,7 @@ public class CsvApplication {
         var avgS = s / bars25.size();
         System.out.println("avgS=" + avgS);
 
-//        System.out.println(source.m5);
-        System.out.println(source.m15);
+        // the following field has been initialized by use of annotation
+        source.m5.forEach(System.out::println);
     }
 }

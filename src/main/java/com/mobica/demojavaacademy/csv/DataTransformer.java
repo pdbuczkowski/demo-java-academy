@@ -1,8 +1,6 @@
 package com.mobica.demojavaacademy.csv;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ public class DataTransformer {
 
     DataTransformer(List<Bar> data) {
         this.data = data;
-        System.out.println("data size: " + data.size());
     }
 
     void processAnnotations(Object object) {
@@ -22,18 +19,18 @@ public class DataTransformer {
 
                 List<Bar> outputList = new LinkedList<>();
                 var transform = field.getAnnotation(TransformData.class);
-                for (int beginIndex = 0; beginIndex < data.size(); beginIndex += transform.group()) {
+                for (int beginIndex = 0; beginIndex < data.size(); beginIndex += transform.merge()) {
                     outputList.add(
-                            toBar(
-                                    data.subList(beginIndex, beginIndex + transform.group())
-                            )
+                        toBar(
+                            data.subList(beginIndex, Math.min(beginIndex + transform.merge(), data.size()))
+                        )
                     );
                 }
 
                 try {
                     field.set(object, outputList);
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("Unable to set value for field " + field.getName());
                 }
             }
         }
@@ -44,12 +41,12 @@ public class DataTransformer {
             return null;
         }
         return new Bar(
-                bars.get(0).date(),
-                bars.get(0).open(),
-                bars.stream().mapToDouble(Bar::high).max().getAsDouble(),
-                bars.stream().mapToDouble(Bar::low).min().getAsDouble(),
-                bars.get(bars.size()-1).close(),
-                bars.stream().map(Bar::volume).reduce(0.0, Double::sum)
+                bars.get(0).d(),
+                bars.get(0).o(),
+                bars.stream().mapToDouble(Bar::h).max().getAsDouble(),
+                bars.stream().mapToDouble(Bar::l).min().getAsDouble(),
+                bars.get(bars.size()-1).c(),
+                bars.stream().map(Bar::v).reduce(0.0, Double::sum)
         );
     }
 }

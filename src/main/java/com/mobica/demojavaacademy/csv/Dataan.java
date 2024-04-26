@@ -13,7 +13,7 @@ public class Dataan {
         var map = new HashMap<Date, LinkedList<Bar>>();
 
         data.forEach(record -> {
-            var date = justDate(record.date());
+            var date = justDate(record.d());
             if (map.containsKey(date)) {
                 map.get(date).add(record);
             } else {
@@ -37,15 +37,15 @@ public class Dataan {
         final var cPos = new LinkedList<Cl>();
 
         data.forEach(bar -> {
-            oPos.add(new Op(bar.open(), bar.open() + tp, bar.open() - sl));
+            oPos.add(new Op(bar.o(), bar.o() + tp, bar.o() - sl));
 
-            var closedTp = oPos.stream().filter(open -> bar.high() >= open.tp()).toList();
+            var closedTp = oPos.stream().filter(open -> bar.h() >= open.tp()).toList();
             oPos.removeAll(closedTp);
             closedTp.stream()
                     .map(p -> new Cl(p.open(), p.tp()))
                     .forEach(cPos::add);
 
-            var closedSl = oPos.stream().filter(open -> bar.low() <= open.sl()).toList();
+            var closedSl = oPos.stream().filter(open -> bar.l() <= open.sl()).toList();
             oPos.removeAll(closedSl);
             closedSl.stream()
                     .map(p -> new Cl(p.open(), p.sl()))
@@ -54,7 +54,7 @@ public class Dataan {
 
         return
                 cPos.stream().map(p -> p.closed() - p.opened()).reduce(0.0, Double::sum) +
-                oPos.stream().map(p -> data.peekLast().close() - p.open()).reduce(0.0, Double::sum);
+                oPos.stream().map(p -> data.peekLast().c() - p.open()).reduce(0.0, Double::sum);
     }
 
     double openShort(LinkedList<Bar> data, double tp, double sl) {
@@ -69,15 +69,15 @@ public class Dataan {
         final var cPos = new LinkedList<Cl>();
 
         data.forEach(bar -> {
-            oPos.add(new Op(bar.open(), bar.open() - tp, bar.open() + sl));
+            oPos.add(new Op(bar.o(), bar.o() - tp, bar.o() + sl));
 
-            var closedTp = oPos.stream().filter(p -> bar.low() <= p.tp()).toList();
+            var closedTp = oPos.stream().filter(p -> bar.l() <= p.tp()).toList();
             oPos.removeAll(closedTp);
             closedTp.stream()
                     .map(p -> new Cl(p.open(), p.tp()))
                     .forEach(cPos::add);
 
-            var closedSl = oPos.stream().filter(p -> bar.high() >= p.sl()).toList();
+            var closedSl = oPos.stream().filter(p -> bar.h() >= p.sl()).toList();
             oPos.removeAll(closedSl);
             closedSl.stream()
                     .map(p -> new Cl(p.open(), p.sl()))
@@ -86,6 +86,6 @@ public class Dataan {
 
         return
                 cPos.stream().map(p -> -(p.closed() - p.opened())).reduce(0.0, Double::sum) +
-                oPos.stream().map(p -> -(data.peekLast().close() - p.open())).reduce(0.0, Double::sum);
+                oPos.stream().map(p -> -(data.peekLast().c() - p.open())).reduce(0.0, Double::sum);
     }
 }
