@@ -11,23 +11,23 @@ import jakarta.validation.constraints.Size;
 
 public class User {
 
-    @NotBlank(message = "First name cannot be blank.")
-    @Size(min = 2, message = "First name is too short.")
+    @NotBlank(message = "first name cannot be blank")
+    @Size(min = 2, message = "first name is too short")
     private String firstName;
 
-    @NotBlank(message = "Last name cannot be blank.")
-    @Size(min = 2, message = "Last name cannot be blank")
+    @NotBlank(message = "last name cannot be blank")
+    @Size(min = 2, message = "last name cannot be blank")
     private String lastName;
 
-    @NotBlank(message = "Username cannot be blank.")
-    @Size(min = 7, message = "Username is too short.")
+    @NotBlank(message = "username cannot be blank")
+    @Size(min = 7, message = "username is too short")
     private String userName;
 
     @Email
     private String email;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past(message = "Date of birth must be in the past.")
+    @Past(message = "date of birth must be in the past")
     private Date dateOfBirth;
 
     public User() {}
@@ -39,7 +39,6 @@ public class User {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
     }
-
 
     public String getFirstName() {
         return this.firstName;
