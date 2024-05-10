@@ -4,6 +4,9 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.mobica.demojavaacademy.annotation.Age;
+import com.mobica.demojavaacademy.annotation.Username;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -21,6 +24,7 @@ public class User {
 
     @NotBlank(message = "username cannot be blank")
     @Size(min = 7, message = "username is too short")
+    @Username
     private String userName;
 
     @Email
@@ -28,6 +32,7 @@ public class User {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "date of birth must be in the past")
+    @Age(message = "must be at least 18")
     private Date dateOfBirth;
 
     public User() {}
