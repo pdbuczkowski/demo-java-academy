@@ -16,7 +16,7 @@ public class User {
     private String firstName;
 
     @NotBlank(message = "last name cannot be blank")
-    @Size(min = 2, message = "last name cannot be blank")
+    @Size(min = 2, message = "last name is too short")
     private String lastName;
 
     @NotBlank(message = "username cannot be blank")

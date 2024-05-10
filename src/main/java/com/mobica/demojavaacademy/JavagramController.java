@@ -25,6 +25,10 @@ public class JavagramController {
 
     @PostMapping("/submitItem")
     public String handleSubmit(@Valid User user, BindingResult bindingResult) {
+        if (user.getFirstName().equals(user.getLastName())) {
+            bindingResult.rejectValue("lastName", "", "please enter a valid data");
+        }
+        System.out.println("hasErrors: " + bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
             return "sign-up";
         }
